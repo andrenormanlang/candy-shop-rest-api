@@ -9,6 +9,20 @@ const router = express.Router()
  */
 router.get('/', index)
 
+/**
+ * GET /resource/:resourceId
+ */
+router.get('/:productId', show)
+
+/**
+ * POST /resource
+ */
+router.post('/', [
+	body('price').isInt({ min: 1}).withMessage('has to be at least 1'),
+    body('stock_quantity').isInt({ min: 0}).withMessage('has to be at least 0'),
+], store)
+
+
 
 export default router
 
