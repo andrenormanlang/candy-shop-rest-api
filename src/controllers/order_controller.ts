@@ -2,6 +2,7 @@
  * Products Template
  */
 import Debug from 'debug'
+import { create } from 'domain'
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import prisma from '../prisma'
@@ -78,9 +79,9 @@ export const store = async (req: Request, res: Response) => {const validationErr
 				customer_email: req.body.customer_email,      
 				customer_phone: req.body.customer_phone,      
 				order_total: req.body.order_total,
-				items: req.body.items //???       
-				
-			}
+				items: {create:req.body.order_items}
+			},
+			include:{items:true}
 
 		})
 		res.status(201).send({
@@ -88,7 +89,7 @@ export const store = async (req: Request, res: Response) => {const validationErr
 			data: order
 		})
 	} catch(err){
-        debug("Error thrown when creating a book %o: %o", req.body, err)
+        console.log("Error thrown when creating a order %o: %o", req.body.order, err)
 		res.status(500).send({message:"Something went wrong"})
 	}
 }

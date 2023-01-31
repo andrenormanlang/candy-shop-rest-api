@@ -1,0 +1,35 @@
+{
+	"status": "success",
+	"data": {
+		"id": 3200,
+		"order_date": "2022-12-30 16:37:04",          // not required
+		"customer_first_name": "Johan",
+		"customer_last_name": "Nordström",
+		"customer_address": "Drottninggatan 4B",
+		"customer_postcode": "224 79",
+		"customer_city": "Malmö",
+		"customer_email": "jn@thehiveresistance.com",
+		"customer_phone": null,
+		"order_total": 100,
+		"created_at": "2022-12-30T15:37:04.000000Z",  // not required
+		"updated_at": "2022-12-30T15:37:04.000000Z",  // not required
+		"items": [
+			{
+				"id": 6393,                           // not required
+				"order_id": 3200,                     // not required
+				"product_id": 6545,
+				"qty": 9,
+				"item_price": 8,
+				"item_total": 72
+			},
+			{
+				"id": 6394,                           // not required
+				"order_id": 3200,                     // not required
+				"product_id": 6653,
+				"qty": 4,
+				"item_price": 7,
+				"item_total": 28
+			}
+		]
+	}
+}

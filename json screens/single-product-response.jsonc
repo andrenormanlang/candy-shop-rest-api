@@ -1,0 +1,16 @@
+{
+	"status": "success",
+	"data": {
+		"id": 6649,
+		"name": "Nöt-Créme",
+		"description": "<p>Hasselnötskräm</p>\n<p>Innehållsförteckning: Socker, vegetabiliska oljor och fetter (shea och palm i varierande proportion), HASSELNÖTTER, JORDNÖTTER, kakao, naturlig vaniljarom, emulgator (solroslecitin).</p>\n<p><em>Alla priser är per skopa.</em></p>\n",
+		"price": 7,
+		"on_sale": false,
+		"images": {
+			"thumbnail": "/storage/products/thumbnails/200549-300x300.png",
+			"large": "/storage/products/200549.png"
+		},
+		"stock_status": "instock",
+		"stock_quantity": 3
+	}
+}
