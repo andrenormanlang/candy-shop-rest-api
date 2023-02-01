@@ -1,6 +1,5 @@
-/* Handle all / products routes */
+/* Handle all / order routes */
 import express from "express";
-import { body } from "express-validator";
 import {
   index,
   show,
@@ -8,31 +7,24 @@ import {
   update,
   destroy,
 } from "../controllers/order_controller";
+import { createOrderRules } from "../validations/order_rules";
+
 const router = express.Router();
 
 /**
- * GET /products
+ * GET /orders
  */
 router.get("/", index);
 
 /**
- * GET /resource/:resourceId
+ * GET /orders/:orderId
  */
 router.get("/:orderId", show);
 
 /**
- * POST /resource
+ * POST /orders
  */
-router.post(
-  "/",
-  [
-    router.post('/', [
-      body('customer_email').isEmail().withMessage('This is an e-mail field'), 
-      body('customer_postcode').isLength({ max: 6 }).withMessage('This postcode is a max. of 6 characters'),
-      body('order_total').isLength({ min: 1 }).withMessage('Your order should contain at least 1 product'),
-    ], store),
-  ],
-  store
-);
+router.post('/',createOrderRules , store)
+
 
 export default router;

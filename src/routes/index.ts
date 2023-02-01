@@ -1,7 +1,7 @@
 import express from "express"
 import orders from './orders'
 import products from './products'
-
+import {createOrderRules} from '../validations/order_rules'
 // instantiate a new router
 const router = express.Router()
 

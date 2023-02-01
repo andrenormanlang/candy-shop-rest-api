@@ -2,6 +2,8 @@
 import express from 'express'
 import {body} from 'express-validator'
 import {index, show, store, update, destroy} from '../controllers/product_controller'
+import { createProductRules } from "../validations/product_rules";
+
 const router = express.Router()
 
 /**
@@ -10,17 +12,14 @@ const router = express.Router()
 router.get('/', index)
 
 /**
- * GET /resource/:resourceId
+ * GET /products/:productId
  */
 router.get('/:productId', show)
 
 /**
- * POST /resource
+ * POST /product
  */
-router.post('/', [
-	body('price').isInt({ min: 1}).withMessage('has to be at least 1'),
-    body('stock_quantity').isInt({ min: 0}).withMessage('has to be at least 0'),
-], store)
+router.post('/', createProductRules, store)
 
 
 
