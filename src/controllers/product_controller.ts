@@ -22,7 +22,7 @@ export const index = async (req: Request, res: Response) => {
 		})
 
 	} catch (err) {
-		debug("Error thrown when finding products", err)
+		console.log("Error thrown when finding products with id %o: %o", err)
 		res.status(500).send({ status: "error", message: "Something went wrong" })
 	}
 }
@@ -46,7 +46,7 @@ export const show = async (req: Request, res: Response) => {
 			data: product,
 		})
 	}catch (err){
-        debug("Error thrown when finding book with id %o: %o", req.params.productId, err)
+        debug("Error thrown when finding product with id %o: %o", req.params.productId, err)
 	 	console.error(err)
 	 	res.status(404).send({
 		error: "Not found."

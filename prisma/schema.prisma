@@ -12,6 +12,7 @@ model Product {
   name           String
   description    String      @db.Text
   price          Int         @db.UnsignedInt
+  on_sale        Boolean?    @default(false)
   images         Json        @default("{}")
   stock_status   String
   stock_quantity Int         @db.UnsignedInt
@@ -20,7 +21,7 @@ model Product {
 
 model Order {
   id                  Int         @id @default(autoincrement()) @db.UnsignedInt
-  //order_date          DateTime     @db.Date
+  order_date          DateTime?   @db.Date
   customer_first_name String
   customer_last_name  String
   customer_address    String
@@ -29,8 +30,8 @@ model Order {
   customer_email      String
   customer_phone      String?
   order_total         Int         @db.UnsignedInt
-  //created_at          DateTime     @db.Timestamp()
-  //updated_at          DateTime     @db.Timestamp()
+  created_at          DateTime?   @db.Timestamp()
+  updated_at          DateTime?   @db.Timestamp()
   items               OrderItem[]
 }
 
