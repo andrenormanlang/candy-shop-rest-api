@@ -21,16 +21,20 @@ model Product {
 
 model Order {
   id                  Int         @id @default(autoincrement()) @db.UnsignedInt
+  order_date          DateTime?
   customer_first_name String
   customer_last_name  String
   customer_address    String
-  customer_postcode   String      @db.VarChar(6)
+  customer_postcode   String
   customer_city       String
   customer_email      String
   customer_phone      String?
   order_total         Int         @db.UnsignedInt
-  items               OrderItem[]
+  created_at          DateTime?
+  updated_at          DateTime?
+  Items               OrderItem[]
 }
+
 
 model OrderItem {
   id         Int     @id @default(autoincrement()) @db.UnsignedInt
