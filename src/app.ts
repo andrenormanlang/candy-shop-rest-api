@@ -3,12 +3,6 @@ import express from "express"
 import morgan from "morgan"
 import routes from './routes'
 
-// const allowedOrigins = ['http://localhost:5173'];
-
-// const options: cors.CorsOptions = {
-//   origin: allowedOrigins
-// };
-
 const app = express()
 app.use(cors())
 app.use(express.static('public'))
