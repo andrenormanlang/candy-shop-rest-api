@@ -21,7 +21,7 @@ model Product {
 
 model Order {
   id                  Int         @id @default(autoincrement()) @db.UnsignedInt
-  order_date          DateTime?
+  order_date          DateTime?   @db.Date
   customer_first_name String
   customer_last_name  String
   customer_address    String
@@ -30,8 +30,8 @@ model Order {
   customer_email      String
   customer_phone      String?
   order_total         Int         @db.UnsignedInt
-  created_at          DateTime?
-  updated_at          DateTime?
+  created_at          DateTime?   @db.Timestamp()
+  updated_at          DateTime?   @db.Timestamp()
   items               OrderItem[]
 }
 
@@ -44,7 +44,6 @@ model OrderItem {
   order_id   Int     @db.UnsignedInt
   product    Product @relation(fields: [product_id], references: [id])
   order      Order   @relation(fields: [order_id], references: [id])
-
   @@index([order_id], map: "OrderItem_order_id_fkey")
   @@index([product_id], map: "OrderItem_product_id_fkey")
 }
