@@ -30,7 +30,7 @@ model Order {
   customer_email      String
   customer_phone      String?
   order_total         Int         @db.UnsignedInt
-  created_at          DateTime?   @db.Timestamp()
+  created_at          DateTime?   @db.Timestamp() 
   updated_at          DateTime?   @db.Timestamp()
   items               OrderItem[]
 }
