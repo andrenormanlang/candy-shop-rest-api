@@ -2,7 +2,6 @@
  * Products Template
  */
 import Debug from 'debug'
-import { create } from 'domain'
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import prisma from '../prisma'

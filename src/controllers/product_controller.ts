@@ -57,7 +57,8 @@ export const show = async (req: Request, res: Response) => {
 /**
  * Create a product
  */
-export const store = async (req: Request, res: Response) => {const validationErrors = validationResult(req)
+export const store = async (req: Request, res: Response) => {
+	const validationErrors = validationResult(req)
 	if (!validationErrors.isEmpty()){
 		return res.status(400).send({
 			status: "fail",

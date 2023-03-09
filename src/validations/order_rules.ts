@@ -1,6 +1,10 @@
 import { body } from "express-validator";
 
 export const createOrderRules = [
+    body('customer_first_name').isString().exists().withMessage('Please provide a valid first name'),
+    body('customer_last_name').isString().exists().withMessage('Please provide a valid last name'),
+    body('customer_address').isString().exists().withMessage('Please provide a valid address'),
+    body('customer_city').isString().exists().withMessage('Please provide a valid city'),
     body('customer_email').isEmail().withMessage('This is an e-mail field'), 
     body('customer_postcode').isString().isLength({ max: 6 }).withMessage('This postcode is a max. of 6 characters'),
     body('order_total').isInt({ min: 1 }).withMessage('Your order should contain at least 1 product'),
