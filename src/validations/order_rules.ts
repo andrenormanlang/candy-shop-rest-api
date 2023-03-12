@@ -8,7 +8,7 @@ export const createOrderRules = [
     body('customer_email').isEmail().withMessage('This is an e-mail field'), 
     body('customer_postcode').isString().isLength({ max: 6 }).withMessage('This postcode is a max. of 6 characters'),
     body('order_total').isInt({ min: 1 }).withMessage('Your order should contain at least 1 product'),
-    body('order_items').isInt({ min: 1 }).bail().withMessage("our basket is empty please order at least 1 item"),
+    body('order_items').isLength({ min: 1 }).bail().withMessage("Your basket is empty please order at least 1 item"),
     body('order_items.*.product_id').isInt({ min: 1 }).bail().withMessage("product not found"),
     body('order_items.*.qty').isInt({ min: 1 }).withMessage('Product out of stock'),
     body('order_items.*.item_price').isInt({ min: 1 }).withMessage('The price of your product should be at least 1'),
