@@ -1,4 +1,4 @@
-# FED22 API-Börtakväll :inbox_tray:	 :candy:	:outbox_tray:
+# Candyshop API :inbox_tray:	 :candy:	:outbox_tray:
 
 This is my first REST API for the Medieinstitutet API development course assignment 1. This API should be used as a drop-in replacement for the candy webshop "BortaKväll" that was developed in the Javascript 1 module of the course. 
 
