@@ -26,5 +26,15 @@ router.get("/:orderId", show);
  */
 router.post('/',createOrderRules , store)
 
+/**
+ * UPDATE /order
+ */
+router.put('/:orderId', update)
+
+/**
+ * DELETE /product
+ */
+router.delete('/:orderId', destroy)
+
 
 export default router;

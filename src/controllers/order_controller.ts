@@ -5,6 +5,7 @@ import Debug from 'debug'
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import prisma from '../prisma'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 // Create a new debug instance
 const debug = Debug('prisma-bortakvall:order_controller')
@@ -93,14 +94,76 @@ export const store = async (req: Request, res: Response) => {const validationErr
 	}
 }
 
-/**
- * Update a resource
- */
-export const update = async (req: Request, res: Response) => {
-}
 
 /**
- * Delete a resource
+ * Update an order
+ */
+export const update = async (req: Request, res: Response) => {
+    const orderId = Number(req.params.orderId);
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+        return res.status(400).send({
+            status: "fail",
+            data: validationErrors.array()
+        });
+    }
+
+    try {
+        const updatedOrder = await prisma.order.update({
+            where: {
+                id: orderId
+            },
+            data: {
+                customer_first_name: req.body.customer_first_name,
+                customer_last_name: req.body.customer_last_name,  
+                customer_address: req.body.customer_address,    
+                customer_postcode: req.body.customer_postcode,        
+                customer_city: req.body.customer_city,       
+                customer_email: req.body.customer_email,      
+                customer_phone: req.body.customer_phone,      
+                order_total: req.body.order_total,
+            },
+            include: { items: true }
+        });
+
+        res.send({
+            status: "success",
+            data: updatedOrder
+        });
+    } catch (err) {
+		if (err instanceof PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).send({
+                error: "Order not found."
+            });
+        }
+        console.error(err);
+        res.status(500).send({ message: "Something went wrong" });
+    }
+};
+
+
+/**
+ * Delete a order
  */
 export const destroy = async (req: Request, res: Response) => {
-}
+    const orderId = Number(req.params.orderId);
+    try {
+        await prisma.order.delete({
+            where: {
+                id: orderId
+            }
+        });
+        res.send({
+            status: "success",
+            message: "Order deleted successfully."
+        });
+    } catch (err) {
+		if (err instanceof PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).send({
+                error: "Order not found."
+            });
+        }
+        console.error(err);
+        res.status(500).send({ message: "Something went wrong" });
+    }
+};
