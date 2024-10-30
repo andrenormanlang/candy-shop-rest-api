@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Product {
@@ -30,7 +31,7 @@ model Order {
   customer_email      String
   customer_phone      String?
   order_total         Int         @db.UnsignedInt
-  created_at          DateTime?   @db.Timestamp()
+  created_at          DateTime    @default(now())
   updated_at          DateTime?   @db.Timestamp()
   items               OrderItem[]
 }

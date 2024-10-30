@@ -61,38 +61,59 @@ export const show = async (req: Request, res: Response) => {
 /**
  * Create a order
  */
-export const store = async (req: Request, res: Response) => {const validationErrors = validationResult(req)
-	if (!validationErrors.isEmpty()){
-		return res.status(400).send({
-			status: "fail",
-			data: validationErrors.array()
-		})
-	}
-	try {
-		const order = await prisma.order.create({
-            data: {
-				customer_first_name: req.body.customer_first_name,
-				customer_last_name: req.body.customer_last_name,  
-				customer_address: req.body.customer_address,    
-				customer_postcode: req.body.customer_postcode,        
-				customer_city: req.body.customer_city,       
-				customer_email: req.body.customer_email,      
-				customer_phone: req.body.customer_phone,      
-				order_total: req.body.order_total,
-				items: {create:req.body.order_items}
-			},
-			include:{items:true}
-
-		})
-		res.status(201).send({
-			status: "success",
-			data: order
-		})
-	} catch(err){
-        console.log("Error thrown when creating a order %o: %o", req.body.order, err)
-		res.status(500).send({message:"Something went wrong"})
-	}
-}
+export const store = async (req: Request, res: Response) => {
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      return res.status(400).send({
+        status: "fail",
+        data: validationErrors.array()
+      });
+    }
+  
+    // Validate product IDs
+    const productIds = req.body.order_items.map((item: any) => item.product_id);
+    const existingProducts = await prisma.product.findMany({
+      where: {
+        id: { in: productIds }
+      }
+    });
+  
+    if (existingProducts.length !== productIds.length) {
+      // Some product IDs are missing from the products table
+      return res.status(400).send({
+        status: "fail",
+        message: "One or more products in the order do not exist."
+      });
+    }
+  
+    // If all product IDs exist, proceed to create the order
+    try {
+      const order = await prisma.order.create({
+        data: {
+          customer_first_name: req.body.customer_first_name,
+          customer_last_name: req.body.customer_last_name,
+          customer_address: req.body.customer_address,
+          customer_postcode: req.body.customer_postcode,
+          customer_city: req.body.customer_city,
+          customer_email: req.body.customer_email,
+          customer_phone: req.body.customer_phone,
+          order_total: req.body.order_total,
+          items: {
+            create: req.body.order_items
+          }
+        },
+        include: { items: true }
+      });
+      res.status(201).send({
+        status: "success",
+        data: order
+      });
+    } catch (err) {
+      console.log("Error thrown when creating an order %o: %o", req.body.order, err);
+      res.status(500).send({ message: "Something went wrong" });
+    }
+  };
+  
 
 
 /**
